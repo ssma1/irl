@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ========== RESET ========== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { height: 100%; }
 body { font-family: 'Roboto', sans-serif; background: #f5f5f5; color: #212121; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; outline: none; }
 img { max-width: 100%; display: block; }
 
 /* ========== MD1 VARIABLES ========== */
@@ -32,87 +32,42 @@ img { max-width: 100%; display: block; }
 
 /* ========== RIPPLE ========== */
 .ripple { position: relative; overflow: hidden; }
-.ripple::after {
-  content: ''; position: absolute; top: 50%; left: 50%;
-  width: 5px; height: 5px; background: rgba(0,0,0,0.15);
-  opacity: 0; border-radius: 100%;
-  transform: scale(1) translate(-50%, -50%);
-  transform-origin: 50% 50%;
-}
+.ripple::after { content: ''; position: absolute; top: 50%; left: 50%; width: 5px; height: 5px; background: rgba(0,0,0,0.15); opacity: 0; border-radius: 100%; transform: scale(1) translate(-50%, -50%); transform-origin: 50% 50%; }
 .ripple:focus:not(:active)::after { animation: ripple 0.6s ease-out; }
-@keyframes ripple {
-  0% { transform: scale(0) translate(-50%, -50%); opacity: 0.5; }
-  100% { transform: scale(60) translate(-50%, -50%); opacity: 0; }
-}
+@keyframes ripple { 0% { transform: scale(0) translate(-50%, -50%); opacity: 0.5; } 100% { transform: scale(60) translate(-50%, -50%); opacity: 0; } }
 
 /* ========== TOASTS ========== */
-#toast-container {
-  position: fixed; top: 12px; left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999; display: flex;
-  flex-direction: column; gap: 8px;
-  align-items: center; pointer-events: none;
-  width: 100%; max-width: 480px; padding: 0 12px;
-}
-.toast {
-  background: #000; color: #fff;
-  padding: 12px 20px; font-size: 13px;
-  font-weight: 500; line-height: 1.4;
-  box-shadow: var(--md-shadow-3);
-  border-left: 4px solid #D52B1E;
-  width: 100%; text-align: center;
-  animation: toastIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: auto;
-  font-family: 'Roboto', sans-serif;
-}
+#toast-container { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; width: 100%; max-width: 480px; padding: 0 12px; }
+.toast { background: #000; color: #fff; padding: 12px 20px; font-size: 13px; font-weight: 500; line-height: 1.4; box-shadow: var(--md-shadow-3); border-left: 4px solid #D52B1E; width: 100%; text-align: center; animation: toastIn 0.35s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: auto; font-family: 'Roboto', sans-serif; }
 .toast.ok { border-left-color: #2E7D32; }
 .toast.warn { border-left-color: #F57C00; }
 .toast.err { border-left-color: #D52B1E; }
-@keyframes toastIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+.toast.timer { border-left-color: #0039A6; background: #0d1b3e; font-family: 'Courier Prime', monospace; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 .toast.out { animation: toastOut 0.3s forwards; }
-@keyframes toastOut {
-  to { opacity: 0; transform: translateY(-20px); }
-}
+@keyframes toastOut { to { opacity: 0; transform: translateY(-20px); } }
 
 /* ========== APP BAR ========== */
-.app-bar {
-  position: fixed; top: 0; left: 0; right: 0;
-  height: 56px; background: #000; color: #fff;
-  display: flex; align-items: center; padding: 0 16px;
-  z-index: 1000; box-shadow: var(--md-shadow-1);
-}
-.app-bar .menu-btn {
-  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
-  color: #fff; border-radius: 50%; margin-right: 8px;
-}
+.app-bar { position: fixed; top: 0; left: 0; right: 0; height: 56px; background: #000; color: #fff; display: flex; align-items: center; padding: 0 16px; z-index: 1000; box-shadow: var(--md-shadow-1); }
+.app-bar .menu-btn { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 50%; margin-right: 8px; }
 .app-bar .menu-btn:hover { background: rgba(255,255,255,0.1); }
-.app-bar .app-title {
-  font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px;
-  text-transform: uppercase; letter-spacing: -1px; flex: 1;
-}
+.app-bar .app-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: -1px; flex: 1; }
 .app-bar .logo-mini { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; }
 
 /* ========== DRAWER ========== */
 .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1001; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .drawer-overlay.open { opacity: 1; pointer-events: auto; }
-.drawer {
-  position: fixed; top: 0; left: 0; bottom: 0; width: 280px; max-width: 85vw;
-  background: #fff; z-index: 1002; transform: translateX(-100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--md-shadow-4); display: flex; flex-direction: column;
-}
+.drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 280px; max-width: 85vw; background: #fff; z-index: 1002; transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--md-shadow-4); display: flex; flex-direction: column; overflow-y: auto; }
 .drawer.open { transform: translateX(0); }
-.drawer-header { background: #000; color: #fff; padding: 24px 16px 20px; display: flex; align-items: center; gap: 12px; }
+.drawer-header { background: #000; color: #fff; padding: 24px 16px 20px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .drawer-header img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; }
 .drawer-header .dh-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 18px; text-transform: uppercase; }
 .drawer-header .dh-sub { font-size: 11px; opacity: 0.7; letter-spacing: 1px; }
-.drawer-nav { flex: 1; padding: 8px 0; overflow-y: auto; }
+.drawer-nav { padding: 8px 0; flex-shrink: 0; }
 .drawer-item { display: flex; align-items: center; gap: 16px; padding: 14px 20px; font-size: 14px; font-weight: 500; color: #333; text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.15s; }
 .drawer-item:hover { background: #f0f0f0; }
 .drawer-item .material-icons-outlined { color: #000; font-size: 22px; }
+.drawer-ad { padding: 16px; display: flex; justify-content: center; background: #fafafa; border-top: 1px solid var(--md-divider); flex-shrink: 0; }
 
 /* ========== MAIN ========== */
 .main-content { padding-top: 56px; min-height: 100vh; padding-bottom: 40px; }
@@ -150,13 +105,20 @@ img { max-width: 100%; display: block; }
 .post-text::first-letter { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; float: left; line-height: 0.85; padding-right: 8px; padding-top: 4px; color: #000; }
 .post-cover { width: 100%; max-height: 340px; object-fit: cover; margin-top: 12px; border: 1px solid #ddd; filter: contrast(1.05) saturate(0.9); }
 .post-cover.shitty { filter: blur(0.5px) contrast(1.2) saturate(0.6) brightness(0.95); opacity: 0.92; }
-.post-actions { display: flex; border-top: 1px solid var(--md-divider); background: #fafafa; }
-.post-action { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #555; transition: background 0.15s; }
+.post-actions { display: flex; border-top: 1px solid var(--md-divider); background: #fafafa; position: relative; z-index: 10; }
+.post-action { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #555; transition: background 0.15s; position: relative; z-index: 10; }
 .post-action:hover { background: #f0f0f0; }
 .post-action + .post-action { border-left: 1px solid var(--md-divider); }
-.poop-icon { font-size: 20px; line-height: 1; display: inline-block; transition: transform 0.15s; }
-.poop-btn .count { color: #8B4513; font-weight: 900; font-family: 'Courier Prime', monospace; font-size: 14px; }
+.poop-icon { font-size: 20px; line-height: 1; display: inline-block; transition: transform 0.15s; pointer-events: none; }
+.poop-btn .count { color: #8B4513; font-weight: 900; font-family: 'Courier Prime', monospace; font-size: 14px; pointer-events: none; }
 .poop-btn:active .poop-icon { transform: scale(1.4); }
+
+/* ========== AD CONTAINERS ========== */
+.ad-container { margin: 16px; background: #fff; box-shadow: var(--md-shadow-1); padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed #ccc; overflow: hidden; position: relative; z-index: 1; min-height: 90px; }
+.ad-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Roboto', sans-serif; pointer-events: none; }
+.ad-content { width: 100%; min-height: 60px; display: flex; justify-content: center; align-items: center; }
+.ad-content iframe, .ad-content img, .ad-content div { max-width: 100%; height: auto; pointer-events: auto; }
+.ad-container-full { margin: 16px 0; width: 100%; display: flex; justify-content: center; overflow: hidden; background: #f0f0f0; min-height: 60px; }
 
 /* ========== MODAL ========== */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: flex-end; justify-content: center; }
@@ -167,20 +129,20 @@ img { max-width: 100%; display: block; }
 .modal-header h3 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 18px; text-transform: uppercase; }
 .modal-header .close-btn { color: #fff; font-size: 24px; }
 .modal-body { flex: 1; overflow-y: auto; padding: 16px 20px; background: #f5f5f5; }
-.comment { background: #fff; padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--md-shadow-1); display: flex; gap: 10px; align-items: flex-start; border-left: 4px solid #D52B1E; }
+.comment { background: #fff; padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--md-shadow-1); display: flex; gap: 10px; align-items: flex-start; border-left: 4px solid #D52B1E; position: relative; z-index: 10; }
 .comment.reply { margin-left: 28px; border-left: 4px dashed #999; background: #fafafa; }
 .comment.reply .comment-avatar { width: 32px; height: 32px; font-size: 16px; }
-.comment-avatar { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); background: linear-gradient(180deg, #fff 0%, #fff 33%, #0039A6 33%, #0039A6 66%, #D52B1E 66%, #D52B1E 100%); border: 2px solid #000; }
+.comment-avatar { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); background: linear-gradient(180deg, #fff 0%, #fff 33%, #0039A6 33%, #0039A6 66%, #D52B1E 66%, #D52B1E 100%); border: 2px solid #000; pointer-events: none; }
 .comment-body { flex: 1; min-width: 0; }
-.comment-ip { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 11px; color: #D52B1E; margin-bottom: 4px; }
-.comment-text { font-family: 'Old Standard TT', serif; font-size: 14px; line-height: 1.5; color: #222; word-wrap: break-word; margin-bottom: 6px; }
-.comment-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.comment-ip { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 11px; color: #D52B1E; margin-bottom: 4px; pointer-events: none; }
+.comment-text { font-family: 'Old Standard TT', serif; font-size: 14px; line-height: 1.5; color: #222; word-wrap: break-word; margin-bottom: 6px; pointer-events: none; }
+.comment-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; position: relative; z-index: 10; }
 .comment-action { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #666; padding: 4px 8px; border: 1px solid #ddd; text-transform: uppercase; letter-spacing: 0.5px; background: #fff; transition: background 0.15s; }
 .comment-action:hover { background: #f0f0f0; }
 .comment-action.dislike { color: #D52B1E; border-color: #f0c0c0; }
-.comment-action.dislike .count { font-family: 'Courier Prime', monospace; }
+.comment-action.dislike .count { font-family: 'Courier Prime', monospace; pointer-events: none; }
 .comment-action.reply-btn { color: #0039A6; border-color: #c0d0f0; }
-.reply-indicator { font-size: 11px; color: #0039A6; font-family: 'Courier Prime', monospace; margin-bottom: 4px; font-style: italic; }
+.reply-indicator { font-size: 11px; color: #0039A6; font-family: 'Courier Prime', monospace; margin-bottom: 4px; font-style: italic; pointer-events: none; }
 .comment-empty { text-align: center; color: #999; font-style: italic; padding: 30px 10px; font-family: 'Old Standard TT', serif; }
 .modal-footer { padding: 12px 16px; border-top: 1px solid var(--md-divider); background: #fff; }
 .reply-preview { display: none; font-size: 11px; color: #0039A6; font-family: 'Courier Prime', monospace; padding: 6px 10px; background: #eef3ff; margin-bottom: 8px; border-left: 3px solid #0039A6; justify-content: space-between; align-items: center; }
@@ -193,7 +155,7 @@ img { max-width: 100%; display: block; }
 .btn-send:hover { box-shadow: var(--md-shadow-2); }
 
 /* ========== DRAWING ========== */
-.drawing-section { margin: 16px; background: #fff; box-shadow: var(--md-shadow-1); border-left: 6px solid #000; padding: 20px; }
+.drawing-section { margin: 16px; background: #fff; box-shadow: var(--md-shadow-1); border-left: 6px solid #000; padding: 20px; position: relative; z-index: 10; }
 .drawing-section h3 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 .drawing-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
 .drawing-tools label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #555; }
@@ -206,7 +168,7 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
 .drawing-hint { font-size: 11px; color: #999; font-style: italic; margin-top: 8px; font-family: 'Old Standard TT', serif; }
 
 /* ========== CREATE POST ========== */
-.create-post-section { margin: 16px; background: #fff; box-shadow: var(--md-shadow-1); padding: 24px 20px; border-top: 6px solid #000; }
+.create-post-section { margin: 16px; background: #fff; box-shadow: var(--md-shadow-1); padding: 24px 20px; border-top: 6px solid #000; position: relative; z-index: 10; }
 .create-post-section h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 24px; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 18px; border-bottom: 3px double #000; padding-bottom: 10px; }
 .form-group { margin-bottom: 16px; }
 .form-group label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 6px; }
@@ -220,7 +182,7 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
 .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ========== ABOUT ========== */
-.about-section { margin: 16px; background: #fff; box-shadow: var(--md-shadow-1); padding: 24px 20px; border-left: 6px solid #000; }
+.about-section { margin: 16px; background: #fff; box-shadow: var(--md-shadow-1); padding: 24px 20px; border-left: 6px solid #000; position: relative; z-index: 10; }
 .about-section h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 24px; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 16px; border-bottom: 3px double #000; padding-bottom: 10px; }
 .about-section p { font-family: 'Old Standard TT', serif; font-size: 15px; line-height: 1.65; margin-bottom: 12px; text-align: justify; }
 .about-section .empty-note { font-style: italic; color: #999; }
@@ -238,8 +200,8 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
 .chat-fab { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; border-radius: 50%; background: #000; color: #fff; z-index: 4000; display: flex; align-items: center; justify-content: center; box-shadow: var(--md-shadow-3); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; animation: chatBounce 2.5s infinite ease-in-out; }
 .chat-fab:hover { box-shadow: var(--md-shadow-4); }
 @keyframes chatBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.chat-fab .material-icons-outlined { font-size: 28px; }
-.chat-badge { position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: #D52B1E; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; font-family: 'Courier Prime', monospace; }
+.chat-fab .material-icons-outlined { font-size: 28px; pointer-events: none; }
+.chat-badge { position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: #D52B1E; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; font-family: 'Courier Prime', monospace; pointer-events: none; }
 .chat-window { position: fixed; bottom: 90px; right: 20px; width: 340px; max-width: calc(100vw - 40px); height: 480px; max-height: calc(100vh - 120px); background: #fff; box-shadow: var(--md-shadow-4); z-index: 4001; display: none; flex-direction: column; border-top: 4px solid #000; }
 .chat-window.open { display: flex; animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 .chat-header { background: #000; color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
@@ -253,13 +215,14 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
 .chat-msg.bot .bubble { background: #fff; color: #222; border-left: 3px solid #000; font-family: 'Old Standard TT', serif; }
 .chat-msg.user .bubble { background: #000; color: #fff; border-right: 3px solid #D52B1E; font-family: 'Roboto', sans-serif; }
 .chat-msg.bot.error .bubble { background: #ffebee; color: #b71c1c; border-left: 3px solid #b71c1c; font-family: 'Courier Prime', monospace; font-size: 11px; white-space: pre-wrap; word-break: break-word; }
-.chat-msg .avatar { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; color: #fff; }
+.chat-msg .avatar { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; color: #fff; pointer-events: none; }
 .chat-msg.bot .avatar { background: #000; }
 .chat-msg.bot.error .avatar { background: #b71c1c; }
 .chat-msg.user .avatar { background: linear-gradient(180deg, #fff 0%, #fff 33%, #0039A6 33%, #0039A6 66%, #D52B1E 66%, #D52B1E 100%); border: 1px solid #000; color: #000; text-shadow: none; }
 .chat-typing { font-size: 12px; color: #999; font-style: italic; padding: 4px 12px; font-family: 'Old Standard TT', serif; }
-.chat-footer { padding: 10px; border-top: 1px solid var(--md-divider); display: flex; gap: 8px; background: #fff; }
-.chat-footer input { flex: 1; padding: 10px 12px; border: 1px solid #ccc; font-family: 'Roboto', sans-serif; font-size: 13px; outline: none; }
+.chat-footer { padding: 10px; border-top: 1px solid var(--md-divider); display: flex; gap: 8px; background: #fff; flex-wrap: wrap; }
+.chat-ad-slot { width: 100%; min-height: 50px; display: flex; justify-content: center; align-items: center; background: #fafafa; margin-bottom: 8px; border: 1px dashed #ccc; overflow: hidden; }
+.chat-footer input { flex: 1; padding: 10px 12px; border: 1px solid #ccc; font-family: 'Roboto', sans-serif; font-size: 13px; outline: none; min-width: 0; }
 .chat-footer input:focus { border-color: #000; }
 .chat-footer button { padding: 0 16px; background: #000; color: #fff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 .chat-footer button:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -273,11 +236,37 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
 .captcha-box { width: 100%; height: 80px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #fafafa; transition: all 0.3s; position: relative; overflow: hidden; }
 .captcha-box:hover { border-color: #000; }
 .captcha-box.verified { background: linear-gradient(180deg, #fff 0%, #fff 33%, #0039A6 33%, #0039A6 66%, #D52B1E 66%, #D52B1E 100%); border-color: #000; color: #fff; }
-.captcha-box .captcha-text { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 22px; text-transform: uppercase; letter-spacing: 2px; }
+.captcha-box .captcha-text { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 22px; text-transform: uppercase; letter-spacing: 2px; pointer-events: none; }
 .captcha-box.verified .captcha-text { color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
-.captcha-box .z-letter { display: none; font-size: 44px; font-weight: 900; font-family: 'Playfair Display', serif; color: #fff; text-shadow: 0 3px 6px rgba(0,0,0,0.7); line-height: 1; }
+.captcha-box .z-letter { display: none; font-size: 44px; font-weight: 900; font-family: 'Playfair Display', serif; color: #fff; text-shadow: 0 3px 6px rgba(0,0,0,0.7); line-height: 1; pointer-events: none; }
 .captcha-box.verified .z-letter { display: block; }
 .captcha-box.verified .captcha-text { display: none; }
+
+/* ========== DONATE / CLICKER ========== */
+.donate-section { margin: 16px; background: #000; color: #fff; box-shadow: var(--md-shadow-2); padding: 24px 20px; border-top: 6px solid #D52B1E; text-align: center; position: relative; z-index: 10; }
+.donate-section h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 24px; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 20px; border-bottom: 3px double #fff; padding-bottom: 10px; }
+.clicker-circle { width: 220px; height: 220px; border-radius: 50%; background: #000; border: 6px solid #fff; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; box-shadow: 0 0 30px rgba(255,255,255,0.2); transition: transform 0.1s; overflow: hidden; animation: spin 20s linear infinite; }
+.clicker-circle:active { transform: scale(0.95); }
+.clicker-circle img { width: 140px; height: auto; pointer-events: none; filter: drop-shadow(0 0 10px #fff); }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.donate-counter { font-family: 'Courier Prime', monospace; font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 20px; text-shadow: 0 0 10px #D52B1E; }
+.donate-counter span { color: #D52B1E; }
+.shop-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px; text-transform: uppercase; margin: 30px 0 16px; border-bottom: 2px solid #fff; padding-bottom: 8px; }
+.shop-grid { display: grid; grid-template-columns: 1fr; gap: 12px; text-align: left; }
+.shop-item { background: #1a1a1a; padding: 14px; border-left: 4px solid #D52B1E; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.shop-item-info { flex: 1; }
+.shop-item-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.shop-item-desc { font-size: 11px; opacity: 0.7; }
+.shop-item-price { font-family: 'Courier Prime', monospace; font-weight: 700; color: #D52B1E; font-size: 14px; white-space: nowrap; }
+.shop-item button { background: #fff; color: #000; padding: 8px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; box-shadow: var(--md-shadow-1); white-space: nowrap; }
+.shop-item button:disabled { opacity: 0.3; cursor: not-allowed; }
+.shop-item button:not(:disabled):hover { background: #e0e0e0; }
+
+/* Photo & Video */
+.photo-block { margin: 16px; display: flex; justify-content: center; }
+.photo-block img { max-width: 100%; box-shadow: var(--md-shadow-2); border: 2px solid #000; }
+.video-block { margin: 16px 0; display: flex; justify-content: center; }
+.video-block video { max-width: 100%; max-height: 400px; border: 2px solid #000; box-shadow: var(--md-shadow-2); }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 480px) {
@@ -290,6 +279,10 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
   .chat-window { width: calc(100vw - 20px); right: 10px; bottom: 85px; height: 70vh; }
   .chat-fab { right: 16px; bottom: 16px; width: 56px; height: 56px; }
   #toast-container { top: 64px; }
+  .clicker-circle { width: 180px; height: 180px; }
+  .clicker-circle img { width: 110px; }
+  .donate-counter { font-size: 26px; }
+  .shop-item { flex-direction: column; align-items: flex-start; }
 }
 </style>
 </head>
@@ -316,6 +309,7 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
   </div>
   <div class="drawer-nav">
     <a href="#" class="drawer-item" data-page="main"><span class="material-icons-outlined">home</span> Главное</a>
+    <a href="#" class="drawer-item" data-page="donate"><span class="material-icons-outlined">paid</span> Сбор на дилдак</a>
     <a href="#" class="drawer-item" data-page="create"><span class="material-icons-outlined">create</span> Создать пост</a>
     <a href="#" class="drawer-item" data-page="drawing"><span class="material-icons-outlined">brush</span> Доска рисования</a>
     <a href="#" class="drawer-item" data-page="about"><span class="material-icons-outlined">info</span> О сайте</a>
@@ -339,8 +333,36 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
       </button>
     </div>
 
+    <!-- Фото между IP и постами -->
+    <div class="photo-block">
+      <img src="https://i.ibb.co/wT5ZPrD/64-20261108043743.png" alt="photo">
+    </div>
+
     <h2 class="feed-title"><span class="material-icons-outlined">article</span> Посты</h2>
     <div id="postsFeed"></div>
+
+    <!-- Нижний блок доната на главной -->
+    <div class="donate-section" id="donateBottom">
+      <h2>Сбор на новый дилдак углероду</h2>
+      <div class="clicker-circle" id="clickerCircle">
+        <img src="https://i.ibb.co/JwNyfmZ7/Dildo.png" alt="dildo">
+      </div>
+      <div class="donate-counter" id="donateCounter">0 <span>кликов</span></div>
+      <div class="shop-title">Магазин</div>
+      <div class="shop-grid" id="shopGrid"></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-donate">
+    <div class="donate-section">
+      <h2>Сбор на новый дилдак углероду</h2>
+      <div class="clicker-circle" id="clickerCircleFull">
+        <img src="https://i.ibb.co/JwNyfmZ7/Dildo.png" alt="dildo">
+      </div>
+      <div class="donate-counter" id="donateCounterFull">0 <span>кликов</span></div>
+      <div class="shop-title">Магазин</div>
+      <div class="shop-grid" id="shopGridFull"></div>
+    </div>
   </section>
 
   <section class="page" id="page-create">
@@ -448,7 +470,7 @@ canvas { display: block; width: 100%; height: 360px; border: 2px solid #000; cur
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, query, orderBy, limit, serverTimestamp, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, query, orderBy, limit, serverTimestamp, increment, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDK6EggGoc080quKlmW8YwVwWRbhJEhQ6A",
@@ -465,8 +487,6 @@ const db = getFirestore(app);
 
 const IMGBB_KEY = "9c3f1e88438e1355bbed26cb865f5c5d";
 const GROQ_API_KEY = "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";
-// Groq удалил llama-3.3-70b-versatile для бесплатных аккаунтов 16.08.2026.
-// Официальная замена: openai/gpt-oss-120b.
 const GROQ_MODEL = "openai/gpt-oss-120b";
 
 const ALLOWED_COUNTRIES = ['RU','BY','UA','KZ','UZ','KG','TJ','AM','AZ','MD','LV','LT','EE'];
@@ -503,10 +523,21 @@ let currentAudioIdx = 0;
 let lastPlayTime = 0;
 let audioPlayInProgress = false;
 
+// Donate / Shop state
+let currentClicks = 0;
+let shopItems = [
+  { id: 1, name: "15 минут с матерью углерода", desc: "Играет с матерью углерода", price: 5000, duration: 15 * 60 },
+  { id: 2, name: "Зажатие между отцами углерода и самим углеродом", desc: "Зажат между отцами", price: 15000, duration: 30 * 60 },
+  { id: 3, name: "Совместное избиение углерода членами", desc: "Избиение углерода", price: 60000, duration: 60 * 60 },
+  { id: 4, name: "Сломать углероду ебло", desc: "Ломает ебло", price: 1000000, duration: 1 }
+];
+let activeTimers = []; // { name, ip, endTime, duration }
+let donateUnsubscribe = null;
+
 function tryLoadNextAudio() {
   if (!shammanAudio) return;
   currentAudioIdx++;
-  if (currentAudioIdx >= SHAMAN_AUDIO_URLS.length) { console.warn('Все варианты аудио не загрузились. Проверь, что pesnya.mp3 лежит рядом с index.html.'); return; }
+  if (currentAudioIdx >= SHAMAN_AUDIO_URLS.length) { console.warn('Все варианты аудио не загрузились.'); return; }
   shammanAudio.src = SHAMAN_AUDIO_URLS[currentAudioIdx];
   shammanAudio.load();
 }
@@ -549,19 +580,19 @@ function unlockAudio() {
 }
 
 // ========== TOASTS ==========
-function showToast(msg, type = '') {
+function showToast(msg, type = '', duration = 4000) {
   const container = document.getElementById('toast-container');
   const el = document.createElement('div');
   el.className = 'toast ' + type;
   el.textContent = msg;
+  el.dataset.until = Date.now() + duration;
   container.appendChild(el);
   setTimeout(() => {
     el.classList.add('out');
     setTimeout(() => el.remove(), 300);
-  }, 4000);
+  }, duration);
 }
 
-// ========== SNACKBAR ==========
 function showSnackbar(msg, duration = 3000) {
   const sb = document.getElementById('snackbar');
   sb.textContent = msg;
@@ -667,12 +698,14 @@ async function loadSiteInfo() {
 // ========== POSTS ==========
 function formatDate(ts) { try { const d = ts?.toDate ? ts.toDate() : new Date(ts); return d.toLocaleString('ru-RU', { day:'2-digit', month:'2-digit', year:'2-digit', hour:'2-digit', minute:'2-digit' }); } catch(e) { return '—'; } }
 function getShittyStockImage(seed) { const blur = [0, 1, 2, 3, 4, 5][seed % 6]; return `https://picsum.photos/seed/irl${seed}/600/400?blur=${blur}&grayscale`; }
+
 async function loadPosts() {
   const feed = document.getElementById('postsFeed');
   try {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(50));
     const snap = await getDocs(q);
     if (snap.empty) { feed.innerHTML = '<div class="post-card"><div class="post-body"><p class="comment-empty">Постов пока нет. Создай первый!</p></div></div>'; return; }
+    
     let html = '';
     let idx = 0;
     snap.forEach(d => {
@@ -680,6 +713,7 @@ async function loadPosts() {
       idx++;
       const imgUrl = p.imageUrl ? p.imageUrl : getShittyStockImage(idx);
       const isStock = !p.imageUrl;
+      
       html += `
         <article class="post-card" data-id="${d.id}">
           <div class="post-header">
@@ -703,23 +737,44 @@ async function loadPosts() {
           </div>
         </article>
       `;
+      
+      // Вставляем видео между каждым вторым постом
+      if (idx % 2 === 0) {
+        html += `
+          <div class="video-block">
+            <video src="femboy.mp4" controls loop muted playsinline preload="metadata"></video>
+          </div>
+        `;
+      }
     });
+
     feed.innerHTML = html;
-    feed.querySelectorAll('.poop-btn').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        const postId = btn.dataset.postId;
-        const countEl = btn.querySelector('.count');
-        const ok = await requireCaptcha();
-        if (!ok) return;
-        try { countEl.textContent = parseInt(countEl.textContent || '0') + 1; await updateDoc(doc(db, 'posts', postId), { likes: increment(1) }); } catch(e) { showSnackbar('Не удалось поставить 💩'); }
-      });
-    });
-    feed.querySelectorAll('.comments-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.stopPropagation(); openComments(btn.dataset.postId); });
-    });
-  } catch(e) { feed.innerHTML = '<div class="post-card"><div class="post-body"><p class="comment-empty">Ошибка загрузки постов</p></div></div>'; }
+
+  } catch(e) { console.error(e); feed.innerHTML = '<div class="post-card"><div class="post-body"><p class="comment-empty">Ошибка загрузки постов</p></div></div>'; }
 }
+
+// Делегирование событий для постов
+document.getElementById('postsFeed').addEventListener('click', async (e) => {
+  const poopBtn = e.target.closest('.poop-btn');
+  if (poopBtn) {
+    e.preventDefault();
+    const postId = poopBtn.dataset.postId;
+    const countEl = poopBtn.querySelector('.count');
+    const ok = await requireCaptcha();
+    if (!ok) return;
+    try { 
+      countEl.textContent = parseInt(countEl.textContent || '0') + 1; 
+      await updateDoc(doc(db, 'posts', postId), { likes: increment(1) }); 
+    } catch(err) { showSnackbar('Не удалось поставить 💩'); }
+    return;
+  }
+  const commentsBtn = e.target.closest('.comments-btn');
+  if (commentsBtn) {
+    e.preventDefault();
+    openComments(commentsBtn.dataset.postId);
+    return;
+  }
+});
 
 // ========== CAPTCHA ==========
 function requireCaptcha() {
@@ -747,6 +802,7 @@ function openComments(postId) {
   document.getElementById('commentsModal').classList.add('open');
   document.getElementById('commentsBody').innerHTML = '<p class="comment-empty">Загрузка...</p>';
   document.getElementById('commentInput').value = '';
+  
   if (commentsUnsubscribe) commentsUnsubscribe();
   const q = query(collection(db, 'posts', postId, 'comments'), orderBy('createdAt', 'asc'), limit(300));
   commentsUnsubscribe = onSnapshot(q, (snap) => {
@@ -787,26 +843,35 @@ function openComments(postId) {
     }
     body.innerHTML = renderLevel('root', 0);
     body.scrollTop = body.scrollHeight;
-    body.querySelectorAll('.comment-action.dislike').forEach(b => {
-      b.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        const cid = b.dataset.commentId;
-        const cnt = b.querySelector('.count');
-        try { cnt.textContent = parseInt(cnt.textContent || '0') + 1; await updateDoc(doc(db, 'posts', currentPostIdForComments, 'comments', cid), { dislikes: increment(1) }); } catch(e) {}
-      });
-    });
-    body.querySelectorAll('.comment-action.reply-btn').forEach(b => {
-      b.addEventListener('click', (e) => {
-        e.stopPropagation();
-        replyToCommentId = b.dataset.commentId;
-        replyToCommentIp = b.dataset.ip;
-        document.getElementById('replyPreviewText').textContent = 'Ответ на ' + replyToCommentIp;
-        document.getElementById('replyPreview').classList.add('show');
-        document.getElementById('commentInput').focus();
-      });
-    });
   }, (err) => { document.getElementById('commentsBody').innerHTML = '<p class="comment-empty">Ошибка загрузки комментариев</p>'; });
 }
+
+// Делегирование событий для комментариев
+document.getElementById('commentsBody').addEventListener('click', async (e) => {
+  const dislikeBtn = e.target.closest('.comment-action.dislike');
+  if (dislikeBtn) {
+    e.preventDefault();
+    const cid = dislikeBtn.dataset.commentId;
+    const cnt = dislikeBtn.querySelector('.count');
+    try { 
+      cnt.textContent = parseInt(cnt.textContent || '0') + 1; 
+      await updateDoc(doc(db, 'posts', currentPostIdForComments, 'comments', cid), { dislikes: increment(1) }); 
+    } catch(err) {}
+    return;
+  }
+  
+  const replyBtn = e.target.closest('.comment-action.reply-btn');
+  if (replyBtn) {
+    e.preventDefault();
+    replyToCommentId = replyBtn.dataset.commentId;
+    replyToCommentIp = replyBtn.dataset.ip;
+    document.getElementById('replyPreviewText').textContent = 'Ответ на ' + replyToCommentIp;
+    document.getElementById('replyPreview').classList.add('show');
+    document.getElementById('commentInput').focus();
+    return;
+  }
+});
+
 document.getElementById('closeCommentsBtn').addEventListener('click', () => {
   document.getElementById('commentsModal').classList.remove('open');
   if (commentsUnsubscribe) { commentsUnsubscribe(); commentsUnsubscribe = null; }
@@ -918,62 +983,170 @@ async function loadLatestDrawing() {
   } catch(e) {}
 }
 
-// ========== BROWSER PERMISSIONS (настоящие) + TOASTS ==========
+// ========== DONATE / SHOP ==========
+function renderShop() {
+  const html = shopItems.map(item => `
+    <div class="shop-item">
+      <div class="shop-item-info">
+        <div class="shop-item-name">${item.name}</div>
+        <div class="shop-item-desc">${item.desc}</div>
+      </div>
+      <div class="shop-item-price">${item.price.toLocaleString('ru-RU')} кликов</div>
+      <button class="buy-btn" data-item-id="${item.id}" ${currentClicks < item.price ? 'disabled' : ''}>Купить</button>
+    </div>
+  `).join('');
+  document.getElementById('shopGrid').innerHTML = html;
+  document.getElementById('shopGridFull').innerHTML = html;
+  
+  // Bind buy buttons
+  document.querySelectorAll('.buy-btn').forEach(btn => {
+    btn.onclick = () => buyItem(parseInt(btn.dataset.itemId));
+  });
+}
+
+async function loadDonateState() {
+  try {
+    const docRef = doc(db, 'siteData', 'donate');
+    const unsub = onSnapshot(docRef, (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        currentClicks = data.clicks || 0;
+        activeTimers = data.timers || [];
+      } else {
+        // Создаем документ если нет
+        setDoc(docRef, { clicks: 0, timers: [] });
+        currentClicks = 0;
+        activeTimers = [];
+      }
+      updateDonateUI();
+      renderShop();
+      updateTimersDisplay();
+    });
+    donateUnsubscribe = unsub;
+  } catch(e) { console.error('loadDonateState', e); }
+}
+
+function updateDonateUI() {
+  const counterHtml = `${currentClicks.toLocaleString('ru-RU')} <span>кликов</span>`;
+  const el1 = document.getElementById('donateCounter');
+  const el2 = document.getElementById('donateCounterFull');
+  if (el1) el1.innerHTML = counterHtml;
+  if (el2) el2.innerHTML = counterHtml;
+  renderShop();
+}
+
+async function handleClicker() {
+  if (!captchaPassed) {
+    const ok = await requireCaptcha();
+    if (!ok) return;
+  }
+  // Оптимистичное обновление
+  currentClicks++;
+  updateDonateUI();
+  try {
+    await updateDoc(doc(db, 'siteData', 'donate'), { clicks: increment(1) });
+  } catch(e) {
+    console.warn('click save failed', e);
+  }
+}
+
+async function buyItem(itemId) {
+  const item = shopItems.find(i => i.id === itemId);
+  if (!item) return;
+  if (currentClicks < item.price) { showToast('Недостаточно кликов!', 'err'); return; }
+  
+  const ip = getMyIp();
+  const endTime = Date.now() + item.duration * 1000;
+  const newTimer = { name: item.name, ip, endTime, duration: item.duration };
+  
+  try {
+    await runTransaction(db, async (transaction) => {
+      const docRef = doc(db, 'siteData', 'donate');
+      const snap = await transaction.get(docRef);
+      const data = snap.exists() ? snap.data() : { clicks: 0, timers: [] };
+      if ((data.clicks || 0) < item.price) {
+        throw new Error('Недостаточно кликов');
+      }
+      const newClicks = data.clicks - item.price;
+      const timers = data.timers || [];
+      timers.push(newTimer);
+      transaction.update(docRef, { clicks: newClicks, timers });
+    });
+    showToast(`Куплено: ${item.name}!`, 'ok');
+  } catch(e) {
+    console.error(e);
+    showToast('Ошибка покупки: ' + e.message, 'err');
+  }
+}
+
+function updateTimersDisplay() {
+  // Удаляем старые тосты-таймеры
+  document.querySelectorAll('.toast.timer').forEach(el => {
+    const until = parseInt(el.dataset.until);
+    if (Date.now() > until) el.remove();
+  });
+  
+  activeTimers = activeTimers.filter(t => t.endTime > Date.now());
+  
+  activeTimers.forEach(t => {
+    const remain = Math.max(0, Math.floor((t.endTime - Date.now()) / 1000));
+    const mm = String(Math.floor(remain / 60)).padStart(2, '0');
+    const ss = String(remain % 60).padStart(2, '0');
+    
+    // Ищем существующий тост по data-timer-id
+    let toast = document.querySelector(`.toast.timer[data-timer-id="${t.endTime}"]`);
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'toast timer';
+      toast.dataset.timerId = t.endTime;
+      toast.dataset.until = t.endTime;
+      document.getElementById('toast-container').appendChild(toast);
+    }
+    toast.textContent = `⏳ ${t.ip} — ${t.name} (осталось ${mm}:${ss})`;
+  });
+}
+
+setInterval(updateTimersDisplay, 1000);
+
+// Bind clicker circles
+function bindClickers() {
+  document.querySelectorAll('.clicker-circle').forEach(el => {
+    el.addEventListener('click', handleClicker);
+  });
+}
+
+// ========== PERMISSIONS ==========
 async function askPermissionsSequential() {
   await delay(300);
-
-  // 1. Камера
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     stream.getTracks().forEach(t => t.stop());
     showToast('Вы поделились доступом к камере 📷', 'ok');
-  } catch(e) {
-    showToast('Вы отказались делиться камерой 📷', 'warn');
-  }
+  } catch(e) { showToast('Вы отказались делиться камерой 📷', 'warn'); }
   await delay(1500);
-
-  // 2. Микрофон
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     stream.getTracks().forEach(t => t.stop());
     showToast('Вы поделились доступом к микрофону 🎤', 'ok');
-  } catch(e) {
-    showToast('Вы отказались делиться микрофоном 🎤', 'warn');
-  }
+  } catch(e) { showToast('Вы отказались делиться микрофоном 🎤', 'warn'); }
   await delay(1500);
-
-  // 3. Геолокация
   try {
     await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, { timeout: 10000 }));
     showToast('Вы поделились своими данными о проживании 📍', 'ok');
-  } catch(e) {
-    showToast('Вы отказались делиться геолокацией 📍', 'warn');
-  }
+  } catch(e) { showToast('Вы отказались делиться геолокацией 📍', 'warn'); }
   await delay(1500);
-
-  // 4. Уведомления
   try {
     if (Notification.permission === 'default') {
       const perm = await Notification.requestPermission();
       if (perm === 'granted') showToast('Вы поделились доступом к уведомлениям 🔔', 'ok');
       else showToast('Вы отказались от уведомлений 🔔', 'warn');
-    } else if (Notification.permission === 'granted') {
-      showToast('Уведомления уже разрешены 🔔', 'ok');
-    } else {
-      showToast('Уведомления заблокированы в браузере 🔔', 'warn');
     }
-  } catch(e) {
-    showToast('Ошибка запроса уведомлений 🔔', 'err');
-  }
+  } catch(e) {}
   await delay(1500);
-
-  // 5. Буфер обмена
   try {
     await navigator.clipboard.readText();
     showToast('Вы поделились содержимым буфера обмена 📋', 'ok');
-  } catch(e) {
-    showToast('Вы отказались делиться буфером обмена 📋', 'warn');
-  }
+  } catch(e) { showToast('Вы отказались делиться буфером обмена 📋', 'warn'); }
 }
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
@@ -1039,7 +1212,7 @@ async function sendChatMessage() {
         model: GROQ_MODEL,
         messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
         temperature: 1.15,
-        max_tokens: 600 // gpt-oss-120b reasoning-модель, ей нужно больше токенов
+        max_tokens: 600
       })
     });
 
@@ -1126,12 +1299,13 @@ async function init() {
   loadIpList();
   loadSiteInfo();
   loadPosts();
+  loadDonateState();
+  bindClickers();
   updateBadge();
   startChatSpam();
   setTimeout(() => { askPermissionsSequential(); }, 5000);
 }
 init();
 </script>
-
 </body>
 </html>
